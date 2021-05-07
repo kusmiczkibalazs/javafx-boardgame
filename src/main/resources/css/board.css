@@ -1,0 +1,16 @@
+.background {
+    -fx-background-color: aliceblue;
+}
+
+.game-board {
+    -fx-background-color: white;
+    -fx-border-style: solid;
+}
+
+.square {
+    -fx-border-style: inherit;
+}
+
+.square:hover {
+    -fx-background-color: cornsilk;
+}
