@@ -1,6 +1,5 @@
 package boardgame.model;
 
-import javafx.beans.property.ObjectProperty;
 
 import java.util.*;
 
@@ -98,17 +97,13 @@ public class BoardGameModel {
             rows.add(position.row());
             cols.add(position.col());
         }
-        //rows.stream().forEach(System.out::println);
-        //cols.stream().forEach(System.out::println);
-        System.out.println(verifyAllEqual(rows));
-        System.out.println(verifyAllEqual(cols));
+
         if (verifyAllEqual(rows)) {
             Collections.sort(cols);
             for (int i = 0; i < cols.size() - 1; i++) {
                 if (cols.get(i) + 1 == cols.get(i+1)) {
                     continue;
-                } else if (stones[getStoneNumber( new Position(rows.get(0), cols.get(i) + 1) ).getAsInt()].getType() == StoneType.EMPTY) {
-                    System.out.println("EMPTY");
+                } else if (stones[getStoneNumber(new Position(rows.get(0), cols.get(i) + 1) ).getAsInt()].getType() == StoneType.EMPTY) {
                     return false;
                 }
             }
@@ -119,7 +114,7 @@ public class BoardGameModel {
             for (int i = 0; i < rows.size() - 1; i++) {
                 if (rows.get(i) + 1 == rows.get(i+1)) {
                     continue;
-                } else if (stones[getStoneNumber( new Position(rows.get(i) + 1, cols.get(0)) ).getAsInt()].getType() == StoneType.EMPTY) {
+                } else if (stones[getStoneNumber(new Position(rows.get(i) + 1, cols.get(0)) ).getAsInt()].getType() == StoneType.EMPTY) {
                     return false;
                 }
             }
@@ -133,6 +128,15 @@ public class BoardGameModel {
         return new HashSet<Integer>(list).size() <= 1;
     }
 
+    public boolean isEnd() {
+        for (var stone : stones) {
+            if (stone.getType() != StoneType.EMPTY) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         StringJoiner joiner = new StringJoiner("\n");
@@ -144,11 +148,6 @@ public class BoardGameModel {
 
     public static void main(String[] args) {
         var model = new BoardGameModel();
-        //System.out.println(model);
-        var selectedP = new ArrayList<Position>();
-        selectedP.add(new Position(0,1));
-        selectedP.add(new Position(1,1));
-        //selectedP.stream().forEach(System.out::println);
-        System.out.println(model.isRemovableSelection(selectedP));
+        System.out.println(model);
     }
 }
