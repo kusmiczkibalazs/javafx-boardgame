@@ -52,10 +52,6 @@ public class BoardGameModel {
         return stones.length;
     }
 
-    public ObjectProperty<StoneType> stoneTypeProperty(int stoneNumber) {
-        return stones[stoneNumber].stoneTypeProperty();
-    }
-
     public Position getStonePosition(int stoneNumber) {
         return stones[stoneNumber].getPosition();
     }
@@ -69,19 +65,72 @@ public class BoardGameModel {
         return OptionalInt.empty();
     }
 
+    public StoneType getStoneType (int stoneNumber) {
+        return stones[stoneNumber].getType();
+    }
+
     public void selectStone(Position position) {
         var stone = stones[getStoneNumber(position).getAsInt()];
-        stone.setType(StoneType.SELECTED_STONE);
+        if (stone.getType() == StoneType.DESELECTED_STONE)
+            stone.setType(StoneType.SELECTED_STONE);
     }
 
     public void deselectStone(Position position) {
         var stone = stones[getStoneNumber(position).getAsInt()];
-        stone.setType(StoneType.DESELECTED_STONE);
+        if (stone.getType() == StoneType.SELECTED_STONE)
+            stone.setType(StoneType.DESELECTED_STONE);
     }
 
     public void removeStone(Position position) {
         var stone = stones[getStoneNumber(position).getAsInt()];
-        stone.setType(StoneType.EMPTY);
+        if (stone.getType() == StoneType.SELECTED_STONE)
+            stone.setType(StoneType.EMPTY);
+    }
+
+    public boolean isRemovableSelection(List<Position> selectedPositions) {
+        if (selectedPositions.size() == 1) {
+            return true;
+        }
+
+        var rows = new ArrayList<Integer>();
+        var cols = new ArrayList<Integer>();
+        for (var position : selectedPositions) {
+            rows.add(position.row());
+            cols.add(position.col());
+        }
+        //rows.stream().forEach(System.out::println);
+        //cols.stream().forEach(System.out::println);
+        System.out.println(verifyAllEqual(rows));
+        System.out.println(verifyAllEqual(cols));
+        if (verifyAllEqual(rows)) {
+            Collections.sort(cols);
+            for (int i = 0; i < cols.size() - 1; i++) {
+                if (cols.get(i) + 1 == cols.get(i+1)) {
+                    continue;
+                } else if (stones[getStoneNumber( new Position(rows.get(0), cols.get(i) + 1) ).getAsInt()].getType() == StoneType.EMPTY) {
+                    System.out.println("EMPTY");
+                    return false;
+                }
+            }
+            return true;
+
+        } else if (verifyAllEqual(cols)) {
+            Collections.sort(rows);
+            for (int i = 0; i < rows.size() - 1; i++) {
+                if (rows.get(i) + 1 == rows.get(i+1)) {
+                    continue;
+                } else if (stones[getStoneNumber( new Position(rows.get(i) + 1, cols.get(0)) ).getAsInt()].getType() == StoneType.EMPTY) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean verifyAllEqual(List<Integer> list) {
+        return new HashSet<Integer>(list).size() <= 1;
     }
 
     @Override
@@ -95,6 +144,11 @@ public class BoardGameModel {
 
     public static void main(String[] args) {
         var model = new BoardGameModel();
-        System.out.println(model);
+        //System.out.println(model);
+        var selectedP = new ArrayList<Position>();
+        selectedP.add(new Position(0,1));
+        selectedP.add(new Position(1,1));
+        //selectedP.stream().forEach(System.out::println);
+        System.out.println(model.isRemovableSelection(selectedP));
     }
 }
