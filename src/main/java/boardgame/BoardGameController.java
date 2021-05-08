@@ -3,6 +3,7 @@ package boardgame;
 import boardgame.model.BoardGameModel;
 import boardgame.model.Position;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -17,9 +18,14 @@ public class BoardGameController {
 
     private BoardGameModel model = new BoardGameModel();
     private List<Position> selectedPositions = new ArrayList<>();
+    private final Color DESELECTED_COLOR = Color.DARKGRAY;
+    private final Color SELECTED_COLOR = Color.BLACK;
 
     @FXML
     private GridPane board;
+
+    @FXML
+    private Button removeButton;
 
     @FXML
     private void initialize() {
@@ -46,7 +52,7 @@ public class BoardGameController {
     private void createStones() {
         for (int i = 0; i < model.getStoneCount(); i++) {
             var stone = new Ellipse(32, 47);
-            stone.setFill(Color.DARKGRAY);
+            stone.setFill(DESELECTED_COLOR);
             getSquare(model.getStonePosition(i)).getChildren().add(stone);
         }
     }
@@ -66,25 +72,38 @@ public class BoardGameController {
         var row = GridPane.getRowIndex(square);
         var col = GridPane.getColumnIndex(square);
         Logger.debug("Click on stone at ({}, {})", row, col);
-        var stone = (Ellipse) square.getChildren().get(0);
         var position = new Position(row, col);
-        handleClickOnSquare(position, stone);
+
+        try {
+            var stone = (Ellipse) square.getChildren().get(0);
+            handleClickOnSquare(position, stone);
+        } catch (IndexOutOfBoundsException e) {
+            Logger.error("The stone has already been removed from position {}", position);
+        }
     }
 
     private void handleClickOnSquare(Position position, Ellipse stone) {
-        if (! selectedPositions.contains(position)) {
+        if (!selectedPositions.contains(position)) {
             selectedPositions.add(position);
             model.selectStone(position);
-            stone.setFill(Color.BLACK);
+            stone.setFill(SELECTED_COLOR);
             Logger.debug("Stone type changed to SELECTED_STONE at position {}", position);
         } else {
             selectedPositions.remove(position);
             model.deselectStone(position);
-            stone.setFill(Color.DARKGRAY);
+            stone.setFill(DESELECTED_COLOR);
             Logger.debug("Stone type changed to DESELECTED_STONE at position {}", position);
         }
 
         //selectedPositions.stream().forEach(System.out::print);
+    }
+
+    @FXML
+    private void onRemoveButtonClick() {
+        for(var position : selectedPositions) {
+            model.removeStone(position);
+            getSquare(position).getChildren().clear();
+        }
     }
 
 }
