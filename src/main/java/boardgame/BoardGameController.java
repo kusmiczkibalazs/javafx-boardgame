@@ -100,10 +100,24 @@ public class BoardGameController {
 
     @FXML
     private void onRemoveButtonClick() {
-        for(var position : selectedPositions) {
-            model.removeStone(position);
-            getSquare(position).getChildren().clear();
+
+        if (model.isRemovableSelection(selectedPositions)) {
+            for (var position : selectedPositions) {
+                model.removeStone(position);
+                getSquare(position).getChildren().clear();
+                Logger.debug("Removed stone from position {}", position);
+            }
+        } else {
+            Logger.debug("Impossible to remove these positions at once: {}", selectedPositions.toString());
+            for (var position : selectedPositions) {
+                model.deselectStone(position);
+                var stone = (Ellipse) getSquare(position).getChildren().get(0);
+                stone.setFill(DESELECTED_COLOR);
+            }
         }
+
+        selectedPositions.clear();
+        //System.out.println(model.toString());
     }
 
 }
