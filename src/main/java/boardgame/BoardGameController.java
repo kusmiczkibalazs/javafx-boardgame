@@ -5,6 +5,7 @@ import boardgame.model.CurrentPlayer;
 import boardgame.model.Position;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -28,6 +29,9 @@ public class BoardGameController {
 
     @FXML
     private Button removeButton;
+
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private void initialize() {
@@ -70,6 +74,7 @@ public class BoardGameController {
 
     @FXML
     private void handleMouseClick(MouseEvent event) {
+        errorLabel.setText("");
         var square = (StackPane) event.getSource();
         var row = GridPane.getRowIndex(square);
         var col = GridPane.getColumnIndex(square);
@@ -115,6 +120,7 @@ public class BoardGameController {
             }
 
         } else {
+            errorLabel.setText("Szabálytalan lépés!\nPróbáld újra!");
             Logger.debug("Impossible to remove these positions at once: {}", selectedPositions.toString());
             for (var position : selectedPositions) {
                 model.deselectStone(position);
