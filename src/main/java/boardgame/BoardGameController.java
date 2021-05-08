@@ -1,6 +1,7 @@
 package boardgame;
 
 import boardgame.model.BoardGameModel;
+import boardgame.model.CurrentPlayer;
 import boardgame.model.Position;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ public class BoardGameController {
     private List<Position> selectedPositions = new ArrayList<>();
     private final Color DESELECTED_COLOR = Color.DARKGRAY;
     private final Color SELECTED_COLOR = Color.BLACK;
+    public CurrentPlayer currentPlayer = new CurrentPlayer();
 
     @FXML
     private GridPane board;
@@ -95,7 +97,6 @@ public class BoardGameController {
             Logger.debug("Stone type changed to DESELECTED_STONE at position {}", position);
         }
 
-        //selectedPositions.stream().forEach(System.out::print);
     }
 
     @FXML
@@ -107,6 +108,12 @@ public class BoardGameController {
                 getSquare(position).getChildren().clear();
                 Logger.debug("Removed stone from position {}", position);
             }
+            currentPlayer.nextPlayer();
+
+            if (model.isEnd()) {
+                Logger.debug("Game finished! The winner is {}", currentPlayer.toString());
+            }
+
         } else {
             Logger.debug("Impossible to remove these positions at once: {}", selectedPositions.toString());
             for (var position : selectedPositions) {
@@ -117,7 +124,6 @@ public class BoardGameController {
         }
 
         selectedPositions.clear();
-        //System.out.println(model.toString());
     }
 
 }
