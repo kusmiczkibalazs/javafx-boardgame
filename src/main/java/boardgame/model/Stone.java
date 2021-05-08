@@ -1,36 +1,30 @@
 package boardgame.model;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 
 public class Stone {
 
-    private ObjectProperty<StoneType> type = new SimpleObjectProperty<>();
-    private ObjectProperty<Position> position = new SimpleObjectProperty<Position>();
+    private StoneType type;
+    private Position position;
 
     public Stone(StoneType type, Position position) {
-        this.type.set(type);
-        this.position.set(position);
+        this.type = type;
+        this.position = position;
     }
 
     public StoneType getType() {
-        return type.get();
+        return type;
     }
 
     public void setType(StoneType type) {
-        this.type.set(type);
+        this.type = type;
     }
 
     public Position getPosition() {
-        return position.get();
-    }
-
-    public ObjectProperty<StoneType> stoneTypeProperty() {
-        return type;
+        return position;
     }
 
     @Override
     public String toString() {
-        return type.get().toString() + " " + position.get().toString();
+        return type.toString() + " " + position.toString();
     }
 }
