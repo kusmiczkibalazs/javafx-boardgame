@@ -83,7 +83,7 @@ public class BoardGameModel {
     public void removeStone(Position position) {
         var stone = stones[getStoneNumber(position).getAsInt()];
         if (stone.getType() == StoneType.SELECTED_STONE)
-            stone.setType(StoneType.EMPTY);
+            stone.setType(StoneType.REMOVED_STONE);
     }
 
     public boolean isRemovableSelection(List<Position> selectedPositions) {
@@ -103,7 +103,7 @@ public class BoardGameModel {
             for (int i = 0; i < cols.size() - 1; i++) {
                 if (cols.get(i) + 1 == cols.get(i+1)) {
                     continue;
-                } else if (stones[getStoneNumber(new Position(rows.get(0), cols.get(i) + 1) ).getAsInt()].getType() == StoneType.EMPTY) {
+                } else if (stones[getStoneNumber(new Position(rows.get(0), cols.get(i) + 1) ).getAsInt()].getType() == StoneType.REMOVED_STONE) {
                     return false;
                 }
             }
@@ -114,7 +114,7 @@ public class BoardGameModel {
             for (int i = 0; i < rows.size() - 1; i++) {
                 if (rows.get(i) + 1 == rows.get(i+1)) {
                     continue;
-                } else if (stones[getStoneNumber(new Position(rows.get(i) + 1, cols.get(0)) ).getAsInt()].getType() == StoneType.EMPTY) {
+                } else if (stones[getStoneNumber(new Position(rows.get(i) + 1, cols.get(0)) ).getAsInt()].getType() == StoneType.REMOVED_STONE) {
                     return false;
                 }
             }
@@ -130,7 +130,7 @@ public class BoardGameModel {
 
     public boolean isEnd() {
         for (var stone : stones) {
-            if (stone.getType() != StoneType.EMPTY) {
+            if (stone.getType() != StoneType.REMOVED_STONE) {
                 return false;
             }
         }

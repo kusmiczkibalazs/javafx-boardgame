@@ -1,7 +1,7 @@
 package boardgame.model;
 
 public enum StoneType {
-    EMPTY,
+    REMOVED_STONE,
     DESELECTED_STONE,
     SELECTED_STONE
 }
