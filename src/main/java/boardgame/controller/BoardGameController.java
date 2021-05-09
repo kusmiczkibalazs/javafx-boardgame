@@ -1,9 +1,14 @@
-package boardgame;
+package boardgame.controller;
 
 import boardgame.model.BoardGameModel;
 import boardgame.model.CurrentPlayer;
 import boardgame.model.Position;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -11,8 +16,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
+import javafx.stage.Stage;
 import org.tinylog.Logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +46,15 @@ public class BoardGameController {
         createStones();
         errorLabel.setVisible(false);
     }
+
+    @FXML
+    private void onExitButtonClick(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 
     private void createBoard() {
         for (int i = 0; i < board.getRowCount(); i++) {
