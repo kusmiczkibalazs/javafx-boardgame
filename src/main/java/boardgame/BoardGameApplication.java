@@ -10,7 +10,7 @@ public class BoardGameApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/board.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
         stage.setTitle("Kavics kapkodó");
         Scene scene = new Scene(root);
         stage.setScene(scene);
