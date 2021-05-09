@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="750.0" styleClass="background" stylesheets="@../css/board.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardgame.BoardGameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="750.0" styleClass="background" stylesheets="@../css/board.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardgame.controller.BoardGameController">
    <center>
       <GridPane fx:id="board" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="game-board" BorderPane.alignment="CENTER_LEFT">
         <columnConstraints>
@@ -30,7 +30,7 @@
    <bottom>
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="500.0" spacing="35.0" style="-fx-font-size: 25;" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Button fx:id="removeButton" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemoveButtonClick" prefHeight="70.0" prefWidth="250.0" text="Levesz" />
+            <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemoveButtonClick" prefHeight="70.0" prefWidth="250.0" text="Levesz" />
          </children>
          <BorderPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -43,6 +43,15 @@
          </BorderPane.margin></Label>
    </top>
    <right>
-      <Label fx:id="errorLabel" lineSpacing="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="175.0" style="-fx-font-size: 25;" text="Szabálytalan lépés! Próbáld újra!" textAlignment="CENTER" textFill="RED" wrapText="true" BorderPane.alignment="CENTER" />
+      <VBox alignment="CENTER" spacing="50.0" style="-fx-font-size: 25;" BorderPane.alignment="CENTER">
+         <children>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="50.0" prefWidth="140.0" text="Kilépés" textFill="RED">
+               <VBox.margin>
+                  <Insets bottom="150.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="errorLabel" lineSpacing="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="175.0" text="Szabálytalan lépés! Próbáld újra!" textAlignment="CENTER" textFill="RED" wrapText="true" />
+         </children>
+      </VBox>
    </right>
 </BorderPane>
