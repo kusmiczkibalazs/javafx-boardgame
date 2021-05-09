@@ -37,6 +37,7 @@ public class BoardGameController {
     private void initialize() {
         createBoard();
         createStones();
+        errorLabel.setVisible(false);
     }
 
     private void createBoard() {
@@ -74,7 +75,7 @@ public class BoardGameController {
 
     @FXML
     private void handleMouseClick(MouseEvent event) {
-        errorLabel.setText("");
+        errorLabel.setVisible(false);
         var square = (StackPane) event.getSource();
         var row = GridPane.getRowIndex(square);
         var col = GridPane.getColumnIndex(square);
@@ -120,7 +121,7 @@ public class BoardGameController {
             }
 
         } else {
-            errorLabel.setText("Szabálytalan lépés!\nPróbáld újra!");
+            errorLabel.setVisible(true);
             Logger.debug("Impossible to remove these positions at once: {}", selectedPositions.toString());
             for (var position : selectedPositions) {
                 model.deselectStone(position);

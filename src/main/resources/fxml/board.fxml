@@ -43,6 +43,6 @@
          </BorderPane.margin></Label>
    </top>
    <right>
-      <Label fx:id="errorLabel" lineSpacing="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="175.0" style="-fx-font-size: 25;" textAlignment="CENTER" textFill="RED" wrapText="true" BorderPane.alignment="CENTER" />
+      <Label fx:id="errorLabel" lineSpacing="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="175.0" style="-fx-font-size: 25;" text="Szabálytalan lépés! Próbáld újra!" textAlignment="CENTER" textFill="RED" wrapText="true" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
