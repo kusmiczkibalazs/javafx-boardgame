@@ -7,11 +7,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.tinylog.Logger;
 
 import java.io.IOException;
 
 public class LaunchScreenController {
+
+    @FXML
+    private TextField firstPlayerLabel;
+
+    @FXML
+    private TextField secondPlayerLabel;
 
     @FXML
     private Label rulesLabel;
@@ -22,15 +30,24 @@ public class LaunchScreenController {
     @FXML
     private void initialize(){
         rulesLabel.setVisible(false);
-        errorLabel.setVisible(false);
     }
 
     @FXML
     private void onStartButtonClick(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/board.fxml"));
-        stage.setScene(new Scene(root));
-        stage.show();
+        if (firstPlayerLabel.getText().isEmpty() || secondPlayerLabel.getText().isEmpty()) {
+            errorLabel.setText("Add meg a játékosok neveit!");
+        } else if (firstPlayerLabel.getText().equals(secondPlayerLabel.getText())) {
+            errorLabel.setText("A két játékos neve ne legyen megegyező!");
+        } else {
+            Logger.info("Names entered: {}, {}", firstPlayerLabel.getText(), secondPlayerLabel.getText());
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
+            Parent root = fxmlLoader.load();
+            BoardGameController controller = fxmlLoader.<BoardGameController>getController();
+            controller.setPlayerNames(firstPlayerLabel.getText(), secondPlayerLabel.getText());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
     }
 
     @FXML
@@ -43,6 +60,8 @@ public class LaunchScreenController {
 
     @FXML
     private void onRulesButtonClick() {
+        errorLabel.setText("");
+
         if(! rulesLabel.isVisible() ) {
             rulesLabel.setVisible(true);
         } else {
