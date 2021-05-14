@@ -25,9 +25,10 @@ public class BoardGameController {
 
     private BoardGameModel model = new BoardGameModel();
     private List<Position> selectedPositions = new ArrayList<>();
+    private String firstPlayerName;
+    private String secondPlayerName;
     private final Color DESELECTED_COLOR = Color.DARKGRAY;
     private final Color SELECTED_COLOR = Color.BLACK;
-
 
     @FXML
     private GridPane board;
@@ -42,6 +43,11 @@ public class BoardGameController {
         errorLabel.setVisible(false);
     }
 
+    public void setPlayerNames (String firstPlayerName, String secondPlayerName) {
+        this.firstPlayerName = firstPlayerName;
+        this.secondPlayerName = secondPlayerName;
+    }
+
     @FXML
     private void onExitButtonClick(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -49,7 +55,6 @@ public class BoardGameController {
         stage.setScene(new Scene(root));
         stage.show();
     }
-
 
     private void createBoard() {
         for (int i = 0; i < board.getRowCount(); i++) {
@@ -90,12 +95,12 @@ public class BoardGameController {
         var square = (StackPane) event.getSource();
         var row = GridPane.getRowIndex(square);
         var col = GridPane.getColumnIndex(square);
-        Logger.debug("Click on stone at ({}, {})", row, col);
         var position = new Position(row, col);
 
         try {
             var stone = (Ellipse) square.getChildren().get(0);
             handleClickOnSquare(position, stone);
+            Logger.debug("Click on stone at ({}, {})", row, col);
         } catch (IndexOutOfBoundsException e) {
             Logger.error("The stone has already been removed from position {}", position);
         }
@@ -127,6 +132,7 @@ public class BoardGameController {
 
             if (model.isEnd()) {
                 Logger.debug("Game finished! The winner is {}", model.getCurrentPlayer());
+                //TODO
             }
 
             Logger.debug("The next player is {}", model.getCurrentPlayer());
