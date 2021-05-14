@@ -5,8 +5,20 @@ import java.util.*;
 
 public class BoardGameModel {
 
+    public enum Player {
+        FIRST_PLAYER, SECOND_PLAYER;
+
+        public Player alterPlayer() {
+            return switch(this) {
+                case FIRST_PLAYER -> SECOND_PLAYER;
+                case SECOND_PLAYER -> FIRST_PLAYER;
+            };
+        }
+    }
+
     public static int BOARD_SIZE = 4;
     private Stone[] stones;
+    private Player currentPlayer;
 
     public BoardGameModel() {
         this(new Stone(StoneType.DESELECTED_STONE, new Position(0, 0)),
@@ -25,6 +37,8 @@ public class BoardGameModel {
              new Stone(StoneType.DESELECTED_STONE, new Position(3, 1)),
              new Stone(StoneType.DESELECTED_STONE, new Position(3, 2)),
              new Stone(StoneType.DESELECTED_STONE, new Position(3, 3)) );
+
+        currentPlayer = Player.FIRST_PLAYER;
     }
 
     public BoardGameModel(Stone... stones) {
@@ -55,6 +69,10 @@ public class BoardGameModel {
         return stones[stoneNumber].getPosition();
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
     public OptionalInt getStoneNumber(Position position) {
         for (int i = 0; i < stones.length; i++) {
             if (stones[i].getPosition().equals(position)) {
@@ -75,21 +93,28 @@ public class BoardGameModel {
     }
 
     public void deselectStone(Position position) {
-        var stone = stones[getStoneNumber(position).getAsInt()];
-        if (stone.getType() == StoneType.SELECTED_STONE)
-            stone.setType(StoneType.DESELECTED_STONE);
+            var stone = stones[getStoneNumber(position).getAsInt()];
+            if (stone.getType() == StoneType.SELECTED_STONE)
+                stone.setType(StoneType.DESELECTED_STONE);
     }
 
-    public void removeStone(Position position) {
-        var stone = stones[getStoneNumber(position).getAsInt()];
-        if (stone.getType() == StoneType.SELECTED_STONE)
-            stone.setType(StoneType.REMOVED_STONE);
+    public void removeStones(List<Position> selectedPositions) {
+        if (isRemovableSelection(selectedPositions)) {
+            for (var position : selectedPositions) {
+                var stone = stones[getStoneNumber(position).getAsInt()];
+                if (stone.getType() == StoneType.SELECTED_STONE)
+                    stone.setType(StoneType.REMOVED_STONE);
+            }
+
+            currentPlayer = currentPlayer.alterPlayer();
+        }
     }
 
     public boolean isRemovableSelection(List<Position> selectedPositions) {
-        if (selectedPositions.size() == 1) {
+        if (selectedPositions.size() == 0)
+            return false;
+        else if (selectedPositions.size() == 1)
             return true;
-        }
 
         var rows = new ArrayList<Integer>();
         var cols = new ArrayList<Integer>();

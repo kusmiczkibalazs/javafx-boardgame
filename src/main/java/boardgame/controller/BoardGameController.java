@@ -1,7 +1,6 @@
 package boardgame.controller;
 
 import boardgame.model.BoardGameModel;
-import boardgame.model.CurrentPlayer;
 import boardgame.model.Position;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -29,13 +27,10 @@ public class BoardGameController {
     private List<Position> selectedPositions = new ArrayList<>();
     private final Color DESELECTED_COLOR = Color.DARKGRAY;
     private final Color SELECTED_COLOR = Color.BLACK;
-    public CurrentPlayer currentPlayer = new CurrentPlayer();
+
 
     @FXML
     private GridPane board;
-
-    @FXML
-    private Button removeButton;
 
     @FXML
     private Label errorLabel;
@@ -123,22 +118,22 @@ public class BoardGameController {
 
     @FXML
     private void onRemoveButtonClick() {
+        model.removeStones(selectedPositions);
+        Logger.debug("Removed stones from these positions: {}", selectedPositions.toString());
 
         if (model.isRemovableSelection(selectedPositions)) {
-            for (var position : selectedPositions) {
-                model.removeStone(position);
+            for (var position : selectedPositions)
                 getSquare(position).getChildren().clear();
-                Logger.debug("Removed stone from position {}", position);
-            }
-            currentPlayer.nextPlayer();
 
             if (model.isEnd()) {
-                Logger.debug("Game finished! The winner is {}", currentPlayer.toString());
+                Logger.debug("Game finished! The winner is {}", model.getCurrentPlayer());
             }
+
+            Logger.debug("The next player is {}", model.getCurrentPlayer());
 
         } else {
             errorLabel.setVisible(true);
-            Logger.debug("Impossible to remove these positions at once: {}", selectedPositions.toString());
+            Logger.debug("Illegal step at these positions: {}", selectedPositions.toString());
             for (var position : selectedPositions) {
                 model.deselectStone(position);
                 var stone = (Ellipse) getSquare(position).getChildren().get(0);
