@@ -2,6 +2,8 @@ package boardgame.controller;
 
 import boardgame.model.BoardGameModel;
 import boardgame.model.Position;
+import boardgame.results.GameResult;
+import boardgame.results.GameResultHandle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.stage.Stage;
 import org.tinylog.Logger;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,6 +157,8 @@ public class BoardGameController {
     }
 
     private void endGame (String winnerName) throws IOException {
+        GameResultHandle.insertIntoResultTable(new GameResult(firstPlayerName, secondPlayerName, winnerName, LocalDateTime.now()));
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ending.fxml"));
         Parent root = fxmlLoader.load();
         EndingController controller = fxmlLoader.<EndingController>getController();
