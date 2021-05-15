@@ -122,7 +122,7 @@ public class BoardGameController {
     }
 
     @FXML
-    private void onRemoveButtonClick() {
+    private void onRemoveButtonClick() throws IOException {
         model.removeStones(selectedPositions);
         Logger.debug("Removed stones from these positions: {}", selectedPositions.toString());
 
@@ -132,7 +132,10 @@ public class BoardGameController {
 
             if (model.isEnd()) {
                 Logger.debug("Game finished! The winner is {}", model.getCurrentPlayer());
-                //TODO
+                switch (model.getCurrentPlayer()) {
+                    case FIRST_PLAYER -> endGame(firstPlayerName);
+                    case SECOND_PLAYER -> endGame(secondPlayerName);
+                }
             }
 
             Logger.debug("The next player is {}", model.getCurrentPlayer());
@@ -148,6 +151,16 @@ public class BoardGameController {
         }
 
         selectedPositions.clear();
+    }
+
+    private void endGame (String winnerName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ending.fxml"));
+        Parent root = fxmlLoader.load();
+        EndingController controller = fxmlLoader.<EndingController>getController();
+        controller.setWinnerLabel(winnerName);
+        Stage stage = (Stage) ((Node) board).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }
