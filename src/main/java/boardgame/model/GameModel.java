@@ -82,10 +82,6 @@ public class GameModel {
         return OptionalInt.empty();
     }
 
-    public StoneType getStoneType (int stoneNumber) {
-        return stones[stoneNumber].getType();
-    }
-
     public void selectStone(Position position) {
         var stone = stones[getStoneNumber(position).getAsInt()];
         if (stone.getType() == StoneType.DESELECTED_STONE)
@@ -126,10 +122,10 @@ public class GameModel {
         if (verifyAllEqual(rows)) {
             Collections.sort(cols);
             for (int i = 0; i < cols.size() - 1; i++) {
-                if (cols.get(i) + 1 == cols.get(i+1)) {
-                    continue;
-                } else if (stones[getStoneNumber(new Position(rows.get(0), cols.get(i) + 1) ).getAsInt()].getType() == StoneType.REMOVED_STONE) {
-                    return false;
+                if (cols.get(i) + 1 != cols.get(i + 1)) {
+                    if (stones[getStoneNumber(new Position(rows.get(0), cols.get(i) + 1) ).getAsInt()].getType() == StoneType.REMOVED_STONE) {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -137,10 +133,10 @@ public class GameModel {
         } else if (verifyAllEqual(cols)) {
             Collections.sort(rows);
             for (int i = 0; i < rows.size() - 1; i++) {
-                if (rows.get(i) + 1 == rows.get(i+1)) {
-                    continue;
-                } else if (stones[getStoneNumber(new Position(rows.get(i) + 1, cols.get(0)) ).getAsInt()].getType() == StoneType.REMOVED_STONE) {
-                    return false;
+                if (rows.get(i) + 1 != rows.get(i + 1)) {
+                    if (stones[getStoneNumber(new Position(rows.get(i) + 1, cols.get(0)) ).getAsInt()].getType() == StoneType.REMOVED_STONE) {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -149,7 +145,7 @@ public class GameModel {
         return false;
     }
 
-    public boolean verifyAllEqual(List<Integer> list) {
+    private boolean verifyAllEqual(List<Integer> list) {
         return new HashSet<Integer>(list).size() <= 1;
     }
 
