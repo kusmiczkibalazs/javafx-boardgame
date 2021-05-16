@@ -30,6 +30,6 @@ public interface GameResultDao {
     @GetGeneratedKeys
     long insertResult(@BindBean GameResult gameResult);
 
-    @SqlQuery("SELECT * FROM results ORDER BY gameDate")
+    @SqlQuery("SELECT * FROM results ORDER BY gameDate DESC")
     List<GameResult> listGameResults();
 }
