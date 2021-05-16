@@ -15,9 +15,7 @@ public class GameResultHandle {
     private static String filePathString = System.getProperty("user.home") + File.separator + ".gameresult";
 
     public static void insertIntoResultTable(GameResult gameResult) {
-        createDatabaseFolder();
-        Jdbi jdbi = Jdbi.create("jdbc:h2:file:" + filePathString + File.separator + "result");
-        jdbi.installPlugin(new SqlObjectPlugin());
+        Jdbi jdbi = createDatabaseConnection();
         try(Handle handle = jdbi.open()) {
             GameResultDao dao = handle.attach(GameResultDao.class);
             dao.createTable();
@@ -26,14 +24,19 @@ public class GameResultHandle {
     }
 
     public static List<GameResult> selectFromResultTable() {
-        createDatabaseFolder();
-        Jdbi jdbi = Jdbi.create("jdbc:h2:file:" + filePathString + File.separator + "result");
-        jdbi.installPlugin(new SqlObjectPlugin());
+        Jdbi jdbi = createDatabaseConnection();
         try(Handle handle = jdbi.open()) {
             GameResultDao dao = handle.attach(GameResultDao.class);
             dao.createTable();
             return dao.listGameResults();
         }
+    }
+
+    private static Jdbi createDatabaseConnection() {
+        createDatabaseFolder();
+        Jdbi jdbi = Jdbi.create("jdbc:h2:file:" + filePathString + File.separator + "result");
+        jdbi.installPlugin(new SqlObjectPlugin());
+        return jdbi;
     }
 
     private static void createDatabaseFolder() {
