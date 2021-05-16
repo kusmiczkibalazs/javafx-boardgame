@@ -65,12 +65,12 @@ public class GameModel {
         return stones.length;
     }
 
-    public Position getStonePosition(int stoneNumber) {
-        return stones[stoneNumber].getPosition();
+    public StoneType getStoneType(Position position) {
+        return stones[getStoneNumber(position).getAsInt()].getType();
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+    public Position getStonePosition(int stoneNumber) {
+        return stones[stoneNumber].getPosition();
     }
 
     public OptionalInt getStoneNumber(Position position) {
@@ -80,6 +80,10 @@ public class GameModel {
             }
         }
         return OptionalInt.empty();
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public void selectStone(Position position) {
@@ -123,7 +127,7 @@ public class GameModel {
             Collections.sort(cols);
             for (int i = 0; i < cols.size() - 1; i++) {
                 if (cols.get(i) + 1 != cols.get(i + 1)) {
-                    if (stones[getStoneNumber(new Position(rows.get(0), cols.get(i) + 1) ).getAsInt()].getType() == StoneType.REMOVED_STONE) {
+                    if (getStoneType(new Position(rows.get(0), cols.get(i) + 1) ) == StoneType.REMOVED_STONE) {
                         return false;
                     }
                 }
@@ -134,7 +138,7 @@ public class GameModel {
             Collections.sort(rows);
             for (int i = 0; i < rows.size() - 1; i++) {
                 if (rows.get(i) + 1 != rows.get(i + 1)) {
-                    if (stones[getStoneNumber(new Position(rows.get(i) + 1, cols.get(0)) ).getAsInt()].getType() == StoneType.REMOVED_STONE) {
+                    if (getStoneType(new Position(rows.get(i) + 1, cols.get(0)) ) == StoneType.REMOVED_STONE) {
                         return false;
                     }
                 }
@@ -165,10 +169,5 @@ public class GameModel {
             joiner.add(stone.toString());
         }
         return joiner.toString();
-    }
-
-    public static void main(String[] args) {
-        var model = new GameModel();
-        System.out.println(model);
     }
 }
