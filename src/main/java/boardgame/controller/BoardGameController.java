@@ -127,7 +127,6 @@ public class BoardGameController {
     @FXML
     private void onRemoveButtonClick() throws IOException {
         model.removeStones(selectedPositions);
-        Logger.debug("Removed stones from these positions: {}", selectedPositions.toString());
 
         if (model.isRemovableSelection(selectedPositions)) {
             for (var position : selectedPositions)
@@ -141,6 +140,7 @@ public class BoardGameController {
                 }
             }
 
+            Logger.debug("Removed stones from these positions: {}", selectedPositions.toString());
             Logger.debug("The next player is {}", model.getCurrentPlayer());
 
         } else {
