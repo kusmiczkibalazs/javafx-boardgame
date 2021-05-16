@@ -24,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputEncoding.>UTF-8</project.build.outputEncoding.>
         <maven.compiler.release>16</maven.compiler.release>
-        <exec.mainClass>boardgame.Main</exec.mainClass>
+        <exec.mainClass>boardgame.javafx.Main</exec.mainClass>
         <jackson-databind.version>2.12.1</jackson-databind.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <jacoco.version>0.8.7</jacoco.version>
