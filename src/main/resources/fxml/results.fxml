@@ -24,11 +24,13 @@
             </BorderPane.margin></Label>
     </top>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView" style="-fx-font-size: 15;" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <placeholder><Label text="Nincs megjeleníthető adat" /></placeholder>
         <columns>
-          <TableColumn prefWidth="81.0" text="Név" />
-          <TableColumn prefWidth="69.0" text="Győzelmek száma" />
-            <TableColumn prefWidth="75.0" text="Legutóbbi győzelem időpontja" />
+          <TableColumn fx:id="firstPlayer" prefWidth="81.0" style="-fx-font-size: 15;" text="1. játékos" />
+          <TableColumn fx:id="secondPlayer" prefWidth="69.0" style="-fx-font-size: 15;" text="2. játékos" />
+            <TableColumn fx:id="winner" prefWidth="75.0" style="-fx-font-size: 15;" text="Győztes" />
+            <TableColumn fx:id="gameDate" prefWidth="75.0" style="-fx-font-size: 15;" text="Játék időpontja" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
