@@ -33,6 +33,11 @@ public class GameController {
     private final Color DESELECTED_COLOR = Color.DARKGRAY;
     private final Color SELECTED_COLOR = Color.BLACK;
 
+    public void setPlayerNames (String firstPlayerName, String secondPlayerName) {
+        this.firstPlayerName = firstPlayerName;
+        this.secondPlayerName = secondPlayerName;
+    }
+
     @FXML
     private GridPane board;
 
@@ -44,19 +49,6 @@ public class GameController {
         createBoard();
         createStones();
         errorLabel.setVisible(false);
-    }
-
-    public void setPlayerNames (String firstPlayerName, String secondPlayerName) {
-        this.firstPlayerName = firstPlayerName;
-        this.secondPlayerName = secondPlayerName;
-    }
-
-    @FXML
-    private void onExitButtonClick(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
-        stage.setScene(new Scene(root));
-        stage.show();
     }
 
     private void createBoard() {
@@ -121,7 +113,6 @@ public class GameController {
             stone.setFill(DESELECTED_COLOR);
             Logger.debug("Stone type changed to DESELECTED_STONE at position {}", position);
         }
-
     }
 
     @FXML
@@ -133,24 +124,22 @@ public class GameController {
                 getSquare(position).getChildren().clear();
 
             if (model.isEnd()) {
-                Logger.debug("Game finished! The winner is {}", model.getCurrentPlayer());
                 switch (model.getCurrentPlayer()) {
                     case FIRST_PLAYER -> endGame(firstPlayerName);
                     case SECOND_PLAYER -> endGame(secondPlayerName);
                 }
+                Logger.info("Game finished! The winner is {}", model.getCurrentPlayer());
             }
-
-            Logger.debug("Removed stones from these positions: {}", selectedPositions.toString());
-            Logger.debug("The next player is {}", model.getCurrentPlayer());
+            Logger.debug("Removed stones from these positions: {}, the next player is {}", selectedPositions.toString(), model.getCurrentPlayer());
 
         } else {
             errorLabel.setVisible(true);
-            Logger.debug("Illegal step at these positions: {}", selectedPositions.toString());
             for (var position : selectedPositions) {
                 model.deselectStone(position);
                 var stone = (Ellipse) getSquare(position).getChildren().get(0);
                 stone.setFill(DESELECTED_COLOR);
             }
+            Logger.debug("Illegal step at these positions: {}", selectedPositions.toString());
         }
 
         selectedPositions.clear();
@@ -166,6 +155,15 @@ public class GameController {
         Stage stage = (Stage) ((Node) board).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @FXML
+    private void onExitButtonClick(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
+        stage.setScene(new Scene(root));
+        stage.show();
+        Logger.info("Ongoing game has been terminated");
     }
 
 }
