@@ -11,7 +11,7 @@
     <bottom>
         <HBox alignment="CENTER" spacing="35.0" style="-fx-font-size: 25;" BorderPane.alignment="CENTER_LEFT">
             <children>
-                <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onHighscoresButtonClick" prefHeight="70.0" prefWidth="250.0" text="Eredmények" />
+                <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onResultsButtonClick" prefHeight="70.0" prefWidth="250.0" text="Eredmények" />
             <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="70.0" prefWidth="250.0" text="Vissza a menübe" />
             </children>
             <BorderPane.margin>

@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HighscoresController {
+public class ResultsController {
 
     @FXML
     private void initialize () {}

@@ -28,7 +28,7 @@
                   <TextField fx:id="secondPlayerLabel" promptText="2. játékos neve" />
                </children>
             </HBox>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onHighscoresButtonClick" prefHeight="70.0" prefWidth="250.0" text="Eredmények" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onResultsButtonClick" prefHeight="70.0" prefWidth="250.0" text="Eredmények" />
             <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRulesButtonClick" prefHeight="70.0" prefWidth="250.0" text="Szabályok" />
             <Label fx:id="rulesLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="600.0" style="-fx-font-size: 22;" text="A játékosok a játék során a tábláról felváltva kell levegyenek legalább 1, legfeljebb 4 kavicsot. Levenni csak egy sorban, vagy egy oszlopban lévő kavicsokat lehet, kizárólag úgy, hogy nincs köztük üres mező. Aki utoljára lép, az veszít." textAlignment="CENTER" wrapText="true" />
          </children>

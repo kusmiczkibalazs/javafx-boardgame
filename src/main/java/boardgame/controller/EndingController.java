@@ -31,9 +31,9 @@ public class EndingController {
     }
 
     @FXML
-    private void onHighscoresButtonClick(ActionEvent event) throws IOException {
+    private void onResultsButtonClick(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/highscores.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/results.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
