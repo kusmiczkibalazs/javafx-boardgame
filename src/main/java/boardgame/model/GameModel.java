@@ -3,7 +3,7 @@ package boardgame.model;
 
 import java.util.*;
 
-public class BoardGameModel {
+public class GameModel {
 
     public enum Player {
         FIRST_PLAYER, SECOND_PLAYER;
@@ -20,7 +20,7 @@ public class BoardGameModel {
     private Stone[] stones;
     private Player currentPlayer;
 
-    public BoardGameModel() {
+    public GameModel() {
         this(new Stone(StoneType.DESELECTED_STONE, new Position(0, 0)),
              new Stone(StoneType.DESELECTED_STONE, new Position(0, 1)),
              new Stone(StoneType.DESELECTED_STONE, new Position(0, 2)),
@@ -41,7 +41,7 @@ public class BoardGameModel {
         currentPlayer = Player.FIRST_PLAYER;
     }
 
-    public BoardGameModel(Stone... stones) {
+    public GameModel(Stone... stones) {
         checkStones(stones);
         this.stones = stones.clone();
     }
@@ -172,7 +172,7 @@ public class BoardGameModel {
     }
 
     public static void main(String[] args) {
-        var model = new BoardGameModel();
+        var model = new GameModel();
         System.out.println(model);
     }
 }

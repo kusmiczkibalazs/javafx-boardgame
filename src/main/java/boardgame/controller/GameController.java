@@ -1,6 +1,6 @@
 package boardgame.controller;
 
-import boardgame.model.BoardGameModel;
+import boardgame.model.GameModel;
 import boardgame.model.Position;
 import boardgame.results.GameResult;
 import boardgame.results.GameResultHandle;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class GameController {
 
-    private BoardGameModel model = new BoardGameModel();
+    private GameModel model = new GameModel();
     private List<Position> selectedPositions = new ArrayList<>();
     private String firstPlayerName;
     private String secondPlayerName;
