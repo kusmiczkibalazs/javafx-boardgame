@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardGameController {
+public class GameController {
 
     private BoardGameModel model = new BoardGameModel();
     private List<Position> selectedPositions = new ArrayList<>();

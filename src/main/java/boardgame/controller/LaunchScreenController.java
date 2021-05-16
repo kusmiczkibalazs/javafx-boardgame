@@ -42,7 +42,7 @@ public class LaunchScreenController {
             Logger.info("Names entered: {}, {}", firstPlayerLabel.getText(), secondPlayerLabel.getText());
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
             Parent root = fxmlLoader.load();
-            BoardGameController controller = fxmlLoader.<BoardGameController>getController();
+            GameController controller = fxmlLoader.<GameController>getController();
             controller.setPlayerNames(firstPlayerLabel.getText(), secondPlayerLabel.getText());
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
