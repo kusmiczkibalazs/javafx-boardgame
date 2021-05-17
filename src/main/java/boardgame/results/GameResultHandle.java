@@ -10,10 +10,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/**
+ * Class for creating and managing database connection.
+ */
 public class GameResultHandle {
 
     private static String filePathString = System.getProperty("user.home") + File.separator + ".gameresult";
 
+    /**
+     * Inserts the game results into the database.
+     *
+     * @param gameResult object containing gameplay data
+     */
     public static void insertIntoResultTable(GameResult gameResult) {
         Jdbi jdbi = createDatabaseConnection();
         try(Handle handle = jdbi.open()) {
@@ -23,6 +31,11 @@ public class GameResultHandle {
         }
     }
 
+    /**
+     *  Returns the content of the database ordered by the game's date in descending order.
+     *
+     * @return a {@code List} containing the stored gameplay data
+     */
     public static List<GameResult> selectFromResultTable() {
         Jdbi jdbi = createDatabaseConnection();
         try(Handle handle = jdbi.open()) {

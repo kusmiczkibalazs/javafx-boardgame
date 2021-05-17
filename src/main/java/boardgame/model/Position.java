@@ -2,6 +2,12 @@ package boardgame.model;
 
 import java.util.Objects;
 
+/**
+ * Record class representing the position of the {@code Stone} objects.
+ *
+ * @param row the row of a position
+ * @param col the column of a position
+ */
 public record Position(int row, int col) {
 
     @Override

@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class containing gameplay data.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
