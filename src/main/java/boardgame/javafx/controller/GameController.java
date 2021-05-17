@@ -68,7 +68,7 @@ public class GameController {
     }
 
     private void createStones() {
-        for (int i = 0; i < model.getStoneCount(); i++) {
+        for (int i = 0; i < GameModel.STONE_COUNT; i++) {
             var stone = new Ellipse(32, 47);
             stone.setFill(DESELECTED_COLOR);
             getSquare(model.getStonePosition(i)).getChildren().add(stone);
