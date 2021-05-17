@@ -32,13 +32,6 @@ class GameModelTest {
     }
 
     @Test
-    void getStoneCount() {
-        assertEquals(16, gameModel.getStoneCount());
-        assertNotEquals(9, gameModel.getStoneCount());
-        assertNotEquals(Integer.MIN_VALUE, gameModel.getStoneCount());
-    }
-
-    @Test
     void getStonePosition() {
         assertEquals(new Position(0, 0), gameModel.getStonePosition(0));
         assertEquals(new Position(2, 1), gameModel.getStonePosition(9));
