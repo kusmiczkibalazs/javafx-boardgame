@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.tinylog.Logger;
 
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class EndingController {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.info("Clicked 'back to menu' button");
     }
 
     @FXML
@@ -36,5 +38,6 @@ public class EndingController {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/results.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.info("Clicked results button");
     }
 }

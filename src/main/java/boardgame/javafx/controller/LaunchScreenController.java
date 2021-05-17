@@ -48,6 +48,7 @@ public class LaunchScreenController {
             stage.setScene(new Scene(root));
             stage.show();
         }
+        Logger.info("Clicked start button");
     }
 
     @FXML
@@ -56,6 +57,7 @@ public class LaunchScreenController {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/results.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.info("Clicked results button");
     }
 
     @FXML
@@ -67,5 +69,6 @@ public class LaunchScreenController {
         } else {
             rulesLabel.setVisible(false);
         }
+        Logger.info("Clicked rules button");
     }
 }

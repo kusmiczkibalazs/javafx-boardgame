@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.tinylog.Logger;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -71,5 +72,6 @@ public class ResultsController {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.info("Clicked 'back to menu' button");
     }
 }
