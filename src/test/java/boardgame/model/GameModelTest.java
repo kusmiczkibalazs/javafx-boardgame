@@ -3,7 +3,7 @@ package boardgame.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.OptionalInt;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -83,17 +83,54 @@ class GameModelTest {
 
     @Test
     void deselectStone() {
-        //TODO
+        gameModel.selectStone(new Position(1, 1));
+        gameModel.selectStone(new Position(2, 2));
+        gameModel.deselectStone(new Position(1, 1));
+        gameModel.deselectStone(new Position(2, 2));
+        assertEquals(StoneType.DESELECTED_STONE, gameModel.getStoneType(new Position(1,1)));
+        assertEquals(StoneType.DESELECTED_STONE, gameModel.getStoneType(new Position(2,2)));
     }
 
     @Test
     void removeStones() {
-        //TODO
+        gameModel.selectStone(new Position(3, 2));
+        gameModel.selectStone(new Position(3, 3));
+        gameModel.removeStones(List.of(new Position(3, 2), new Position(3, 3)));
+        assertEquals(StoneType.REMOVED_STONE, gameModel.getStoneType(new Position(3, 2)));
+        assertEquals(StoneType.REMOVED_STONE, gameModel.getStoneType(new Position(3, 3)));
     }
 
     @Test
     void isRemovableSelection() {
-        //TODO
+        var selection1 = Arrays.asList(new Position(0, 0), new Position(1, 0));
+        assertTrue(gameModel.isRemovableSelection(selection1));
+
+        var selection2 = Arrays.asList(new Position(1, 1), new Position(1, 2));
+        assertTrue(gameModel.isRemovableSelection(selection2));
+
+        var selection3 = Arrays.asList(new Position(0, 0), new Position(1, 0), new Position(3, 0));
+        assertTrue(gameModel.isRemovableSelection(selection3));
+
+        var selection4 = Arrays.asList(new Position(0, 0), new Position(0, 1), new Position(0, 3));
+        assertTrue(gameModel.isRemovableSelection(selection4));
+
+        var selection5 = Collections.singletonList(new Position(3, 3));
+        assertTrue(gameModel.isRemovableSelection(selection5));
+
+        List<Position> selection6 = Collections.emptyList();
+        assertFalse(gameModel.isRemovableSelection(selection6));
+
+        var selection7 = Arrays.asList(new Position(0, 0), new Position(1, 1));
+        assertFalse(gameModel.isRemovableSelection(selection7));
+
+
+        gameModel.selectStone(new Position(2, 2));
+        gameModel.removeStones(List.of(new Position(2,2)));
+        var selection8 = Arrays.asList(new Position(2, 1), new Position(2, 3));
+        assertFalse(gameModel.isRemovableSelection(selection8));
+
+        var selection9 = Arrays.asList(new Position(1, 2), new Position(3, 2));
+        assertFalse(gameModel.isRemovableSelection(selection9));
     }
 
     @Test
