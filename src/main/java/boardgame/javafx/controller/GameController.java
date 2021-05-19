@@ -4,6 +4,7 @@ import boardgame.model.GameModel;
 import boardgame.model.Position;
 import boardgame.results.GameResult;
 import boardgame.results.GameResultHandle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,10 +46,16 @@ public class GameController {
     private Label errorLabel;
 
     @FXML
+    private Label currentPlayerLabel;
+
+    @FXML
     private void initialize() {
         createBoard();
         createStones();
         errorLabel.setVisible(false);
+        Platform.runLater(
+                () -> currentPlayerLabel.setText(firstPlayerName + " következik")
+        );
     }
 
     private void createBoard() {
@@ -141,8 +148,12 @@ public class GameController {
             }
             Logger.debug("Illegal step at these positions: {}", selectedPositions.toString());
         }
-
         selectedPositions.clear();
+
+        switch (model.getCurrentPlayer()) {
+            case FIRST_PLAYER -> currentPlayerLabel.setText(firstPlayerName + " következik");
+            case SECOND_PLAYER -> currentPlayerLabel.setText(secondPlayerName + " következik");
+        }
     }
 
     private void endGame (String winnerName) throws IOException {
