@@ -28,9 +28,10 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <bottom>
-      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="500.0" spacing="35.0" style="-fx-font-size: 25;" BorderPane.alignment="CENTER_LEFT">
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="675.0" spacing="240.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemoveButtonClick" prefHeight="70.0" prefWidth="250.0" text="Levesz" />
+            <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemoveButtonClick" prefHeight="70.0" prefWidth="250.0" style="-fx-font-size: 25;" text="Levesz" />
+            <Label fx:id="currentPlayerLabel" style="-fx-font-size: 22;" textAlignment="CENTER" wrapText="true" />
          </children>
          <BorderPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
